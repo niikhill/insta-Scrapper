@@ -218,7 +218,8 @@ app.post("/scrape", upload.none(), async (request, response) => {
         response.redirect("/error.html");
         return;
     }
-
+    curUser = req.userName;
+    isAuth = true;
     response.redirect("/added");
 });
 
@@ -247,7 +248,39 @@ app.post("/login", upload.none(), async (request, response) => {
 });
 
 
-
+app.get("/stories", async (request, response) => {
+    try {
+        if (isAuth === true) {
+            const data = await story.find({});
+            console.log(curUser);
+            data.forEach(function (i) {
+                if (i.username === curUser) {
+                    res = `<h2>YOUR STORIES -> @ ${i.username}</h1>`;
+                    let index = 0;
+                    if (data.length == 0) {
+                        res += "<h3>No added stories</h3>";
+                    } else {
+                        data.forEach(function (i) {
+                            if (i.username === curUser) {
+                                res += `<body style="background-color:#a2b9bc;display:flex;flex-direction: column;flex-wrap: wrap;"><div><a href=${i.storyURL}><li>Click</li></a></div></div></body>`
+                            }
+                        });
+                    }
+                    res += '<h3><a href="/">HOME</a></h3>';
+                    response.send(res);
+                } else {
+                    let res = `<h2>NO STORY FOUND </h1>`;
+                    response.send(res);
+                }
+            });
+        } else {
+            let res = `<h2>YOUR STORIES</h1><div>AUTHENTICATE FIRST</div>`;
+            response.send(res);
+        }
+    } catch (err) {
+        console.log(err);
+    }
+});
 
 let port = process.env.PORT;
 if (port == null || port == "") {
