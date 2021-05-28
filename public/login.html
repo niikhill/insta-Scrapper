@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>InstaSrape</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .disp {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        function progress() {
+            const element = document.getElementById("loading");
+            element.classList.remove("disp");
+            const ds = document.getElementById("d");
+            ds.classList.remove("disp");
+            const es = document.getElementById("e");
+            es.classList.add("disp");
+        }
+    </script>
+
+    <div class="container_fluid" style="height: 100vh; background-color: #a2b9bc;padding: 200px;">
+        <div class="w-30 mx-auto" style="border-color: #6b5b95;border:2px; width: 30%;">
+            <form action="/login" method="POST" name="login">
+                <div class="form-group">
+                    <label for="userName">User Name</label>
+                    <input type="text" class="form-control" id="userName" name="userName" placeholder="Enter userName">
+                </div>
+                <div class="form-group">
+                    <label for="psswd">Password</label>
+                    <input type="password" class="form-control" id="pswd" name="pswd" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary" style="background-color:#868686" onclick="progress()"><i
+                        id="loading" class="fa fa-refresh fa-spin disp"></i><span id="d" class="disp">
+                        LOGIN...</span><span id="e">LOGIN</span></button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
